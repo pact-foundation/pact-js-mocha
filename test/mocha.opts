@@ -1,0 +1,6 @@
+--bail
+--require ./src/index.js
+--check-leaks
+--reporter spec
+--colors
+--recursive
