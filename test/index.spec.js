@@ -26,7 +26,7 @@ Pact('PactUI', 'Projects Provider', PROVIDER_URL, function () {
   })
 
   function requestProjects () {
-    return request.get(`${PROVIDER_URL}/projects`).set({ 'Accept': 'application/json' })
+    return request.get(PROVIDER_URL + '/projects').set({ 'Accept': 'application/json' })
   }
 
   verify('single interaction', requestProjects, function (result, done) {
