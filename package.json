@@ -6,9 +6,8 @@
   "scripts": {
     "lint": "standard",
     "jscpd": "jscpd -p src -r json -o jscpd.json",
-    "predist": "npm run lint && npm run jscpd",
-    "postdist": "npm t",
-    "test": "./node_modules/.bin/babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha -- ./test"
+    "pretest": "npm run lint && npm run jscpd",
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- ./test"
   },
   "repository": {
     "type": "git",
@@ -72,7 +71,6 @@
     "bluebird": "3.4.0",
     "chai": "3.5.0",
     "codeclimate-test-reporter": "0.3.1",
-    "isparta": "4.0.0",
     "istanbul": "0.4.3",
     "jscpd": "0.6.1",
     "standard": "7.1.1",
