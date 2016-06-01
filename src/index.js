@@ -84,7 +84,7 @@ module.exports = Mocha.interfaces['bdd'] = function (suite) {
      */
 
     context.Pact = function (consumer, provider, providerURL, fn) {
-      var pactSuite = Suite.create(suites[0], `Pact ${consumer} <=> ${provider}`)
+      var pactSuite = Suite.create(suites[0], 'Pact ' + consumer + ' <=> ' + provider)
       pactSuite.file = file
 
       pactSuite.pactConsumer = consumer
@@ -104,7 +104,7 @@ module.exports = Mocha.interfaces['bdd'] = function (suite) {
      */
 
     context.xPact = function (consumer, provider, fn) {
-      var pactSuite = Suite.create(suites[0], `Pact ${consumer} <=> ${provider}`)
+      var pactSuite = Suite.create(suites[0], 'Pact ' + consumer + ' <=> ' + provider)
       pactSuite.pending = true
       suites.unshift(pactSuite)
       fn.call(pactSuite, {})
@@ -183,7 +183,7 @@ module.exports = Mocha.interfaces['bdd'] = function (suite) {
           })
           .catch(function (err) { done(err) })
           .finally(function () {
-            mockServer.delete().then(() => {
+            mockServer.delete().then(function () {
               wrapper.removeAllServers()
             })
           })
