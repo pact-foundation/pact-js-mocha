@@ -62,15 +62,17 @@
     ]
   },
   "dependencies": {
-    "@pact-foundation/pact-node": "4.1.0",
+    "@pact-foundation/pact-node": "4.1.1",
     "escape-string-regexp": "1.0.5",
     "mocha": "2.5.3",
     "pact": "tarciosaraiva/pact-js"
   },
   "devDependencies": {
     "bluebird": "3.4.0",
+    "body-parser": "1.15.1",
     "chai": "3.5.0",
     "codeclimate-test-reporter": "0.3.1",
+    "express": "4.13.4",
     "istanbul": "0.4.3",
     "jscpd": "0.6.1",
     "standard": "7.1.1",

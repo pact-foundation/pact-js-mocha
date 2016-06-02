@@ -84,7 +84,7 @@ module.exports = Mocha.interfaces['bdd'] = function (suite) {
      */
 
     context.Pact = function (consumer, provider, providerURL, fn) {
-      var pactSuite = Suite.create(suites[0], 'Pact ' + consumer + ' <=> ' + provider)
+      var pactSuite = Suite.create(suites[0], consumer + ' has pact with ' + provider)
       pactSuite.file = file
 
       pactSuite.pactConsumer = consumer
@@ -99,12 +99,26 @@ module.exports = Mocha.interfaces['bdd'] = function (suite) {
       return pactSuite
     }
 
+    context.PactProvider = function (consumer, provider, fn) {
+      var pactSuite = Suite.create(suites[0], 'Pact ' + consumer + ' <=> ' + provider)
+      pactSuite.file = file
+
+      pactSuite.pactConsumer = consumer
+      pactSuite.pactProvider = provider
+
+      suites.unshift(pactSuite)
+      fn.call(pactSuite, {})
+      suites.shift()
+
+      return pactSuite
+    }
+
     /**
      * Pending Pact.
      */
 
-    context.xPact = function (consumer, provider, fn) {
-      var pactSuite = Suite.create(suites[0], 'Pact ' + consumer + ' <=> ' + provider)
+    context.xPact = context.xPactProvider = function (consumer, provider, fn) {
+      var pactSuite = Suite.create(suites[0], consumer + ' has pact with ' + provider)
       pactSuite.pending = true
       suites.unshift(pactSuite)
       fn.call(pactSuite, {})
@@ -186,6 +200,28 @@ module.exports = Mocha.interfaces['bdd'] = function (suite) {
             mockServer.delete().then(function () {
               wrapper.removeAllServers()
             })
+          })
+      })
+
+      test.file = file
+      pactSuite.addTest(test)
+      return test
+    }
+
+    context.honourPact = function (opts, fn) {
+      var pactSuite = suites[0]
+
+      if (pactSuite.pending) {
+        fn = null
+      }
+
+      var test = new Test('should honour interactions', function (done) {
+        wrapper.verifyPacts(opts)
+          .then(function (data) {
+            fn(data, done)
+          })
+          .catch(function (err) {
+            done(err)
           })
       })
 

@@ -22,12 +22,18 @@ Pact('PactUI', 'Projects Provider', PROVIDER_URL, function () {
       .given('i have a list of projects')
       .uponReceiving('a request for projects')
       .withRequest('get', '/projects', null, { 'Accept': 'application/json' })
-      .willRespondWith(200, { 'Content-Type': 'application/json' }, EXPECTED_BODY)
+      .willRespondWith(200, { 'Content-Type': 'application/json; charset=utf-8' }, EXPECTED_BODY)
   })
 
   function requestProjects () {
     return request.get(PROVIDER_URL + '/projects').set({ 'Accept': 'application/json' })
   }
+
+  // Interceptor example
+  // var Interceptor = require('pact').Interceptor
+  // var interceptor = new Interceptor('http://localhost:1234')
+  // beforeEach(function () { interceptor.interceptRequestsOn(PROVIDER_URL) })
+  // afterEach(function () { interceptor.stopIntercepting() })
 
   verify('single interaction', requestProjects, function (result, done) {
     expect(JSON.parse(result)).to.eql(EXPECTED_BODY)
