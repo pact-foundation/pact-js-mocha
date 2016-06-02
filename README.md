@@ -1,6 +1,11 @@
 # Pact Mocha Interface
 Mocha Interface for Pact
 
+[![Build Status](https://travis-ci.org/tarciosaraiva/pact-mocha-interface.svg?branch=master)](https://travis-ci.org/tarciosaraiva/pact-mocha-interface)
+[![Code Climate](https://codeclimate.com/github/tarciosaraiva/pact-mocha-interface/badges/gpa.svg)](https://codeclimate.com/github/tarciosaraiva/pact-mocha-interface)
+[![Test Coverage](https://codeclimate.com/github/tarciosaraiva/pact-mocha-interface/badges/coverage.svg)](https://codeclimate.com/github/tarciosaraiva/pact-mocha-interface/coverage)
+[![Issue Count](https://codeclimate.com/github/tarciosaraiva/pact-mocha-interface/badges/issue_count.svg)](https://codeclimate.com/github/tarciosaraiva/pact-mocha-interface)
+
 #WIP - DO NOT USE
 
 Implementation of the consumer driven contract library [pact](https://github.com/pact-foundation/pact-specification).
