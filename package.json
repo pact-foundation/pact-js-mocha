@@ -4,6 +4,7 @@
   "description": "Mocha Interface for Pact",
   "main": "./src/index.js",
   "scripts": {
+    "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "lint": "standard",
     "jscpd": "jscpd -p src -r json -o jscpd.json",
     "pretest": "npm run lint && npm run jscpd",
@@ -71,7 +72,7 @@
     "bluebird": "3.4.0",
     "body-parser": "1.15.1",
     "chai": "3.5.0",
-    "codeclimate-test-reporter": "0.3.1",
+    "coveralls": "2.11.9",
     "express": "4.13.4",
     "istanbul": "0.4.3",
     "jscpd": "0.6.1",

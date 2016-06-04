@@ -1,11 +1,12 @@
 language: node_js
 node_js:
-- '5'
 - '4'
-- '0.12'
+- '6'
 env:
   matrix:
   - CXX=g++-4.8
+  global:
+  - secure: YPZwqMkKDE4YBJMfXVQjm3Q3N82P6oiY1ST96xUl19q/a3KNdAMT5jQn/heboIXLeKk3/C5HzmCCSxEgadiWnYfZtzYGEC71mhpyFZqaM0I7qfVeCQAxkNeEhHmbyW+ucQrJPjOHjTaQQTD0q9wSAmLPNbjPPCZhsLObfxbsBswM3CDNxRVT/fKha/lhZdzS61ZyzhYbneQ9nV/W11yg+EpoK15g/F45JTJ/Fbu0xKtPe7aWTuvWykPqUZc2pFBXXVg8JptYhzc4xxzK8zqb4FALpPSekEGmTdOMu8A+eXHEiQKDwwh3ytTP+Ch9C+uTOBabCWyDgLSumNNH5c2mQA4jkrLCIHVYNoUzmqS2QG3ZdhsxNw7aI4Cy6sbIvUzZpRBrg71c1JCZPuaOArgMgol6OzXtS4aBBzSgOXEm7TRMtMwWTvW9Z4Tk+GYacT6/t3aJN5YH+I3g3jcvF2nPWUys1RF1jVHgtXUcCSDATLwsCijBOGLq9QXYMe1ey4tiARS9zHXJmaXDkWkynCpxNLNfJRVSrRMCjUiaqdIfsPFYdfOvpCvXhwpD+XhX2OQthgvN6n7DPfKP72VqL1D8NCwz13NherhOn747+LUJ6qzQrRbDbO8zz3HP/NLW+rS99Fuw8FJ55upLPtwbjDoZbA0IBGk/9WZ9gQQqfOy9WzI=
 addons:
   apt:
     sources:
@@ -16,3 +17,5 @@ before_install:
 - npm install mitm
 install: npm install
 script: npm test
+after_success:
+- npm run coverage
