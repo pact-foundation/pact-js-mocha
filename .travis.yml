@@ -4,8 +4,6 @@ node_js:
 - '4'
 - '0.12'
 env:
-  global:
-  - secure: JnttE/NOAxtofRBuefVHNNSTZ27ceck/2rnjRwmXmV+9MOEjw9eSJTUE2/3vmnabG3yTAIXvf2CsJnshKlHra7yZhjJln4yKqRPoj2I1C7q2kxTO6aj2UzOXsE+cLMT14YVNkKlCLEps0XC+nFYqzLajJfk2wyGn+XSLiNLphk6f2IrbUoR0XUxTPOyjnPvO8vUh6zm1mlwNHmSx+MS+XtgF859FvGMZjzu+8CIBzlbSsys1c6fBc6lSU3wE1ySEZ2uqh/Arl+PmW345XJ5Jpp7JfIAz0WgMEmU0vep8MuWcp6pn717UoZk3z5ugKST/SjJ5RcTFEgSvalFDAYLm6ZgmAI1FTKBRpS2Jp+4TST7UiHfzzOp+5vjKDMzIZqG3WfthH0JvpImHR9Y5hIskvz7h35ZubLMVrlMuMxQrX/kfDjqMpNAsJdUpRBB871yeZvxfyM6QDaeuOZN444cSXCtoPP1OLsKvUx/iA+WKpOZR884GlX8mYuq1RuR2sSrP6LtNGFI2eoDB6gLXOlvTDlVwQHYSDkOPcrMB+wkvUCVoMBn2TnNrkpsueA7wGHnvBFBNM8zZDjNSYRX/x0tS9GxwEcTf9HcR/eeeDOeTgqoR1wxrrau+S4YgXZDfvQE1xORfw6pYUxThHk8wICz0QVhxiQLIL2WILuZdkhLhxe8=
   matrix:
   - CXX=g++-4.8
 addons:
@@ -18,5 +16,3 @@ before_install:
 - npm install mitm
 install: npm install
 script: npm test
-after_success:
-- codeclimate-test-reporter < ./coverage/lcov.info
