@@ -1,10 +1,10 @@
 # Pact Mocha Interface
 Mocha Interface for Pact
 
-[![Build Status](https://travis-ci.org/pact-foundation/pact-mocha-interface.svg?branch=master)](https://travis-ci.org/pact-foundation/pact-mocha-interface)
-[![Code Climate](https://codeclimate.com/github/pact-foundation/pact-mocha-interface/badges/gpa.svg)](https://codeclimate.com/github/pact-foundation/pact-mocha-interface)
-[![Test Coverage](https://codeclimate.com/github/pact-foundation/pact-mocha-interface/badges/coverage.svg)](https://codeclimate.com/github/pact-foundation/pact-mocha-interface/coverage)
-[![Issue Count](https://codeclimate.com/github/pact-foundation/pact-mocha-interface/badges/issue_count.svg)](https://codeclimate.com/github/pact-foundation/pact-mocha-interface)
+[![Build Status](https://travis-ci.org/pact-foundation/pact-js-mocha.svg?branch=master)](https://travis-ci.org/pact-foundation/pact-js-mocha)
+[![Code Climate](https://codeclimate.com/github/pact-foundation/pact-js-mocha/badges/gpa.svg)](https://codeclimate.com/github/pact-foundation/pact-js-mocha)
+[![Issue Count](https://codeclimate.com/github/pact-foundation/pact-js-mocha/badges/issue_count.svg)](https://codeclimate.com/github/pact-foundation/pact-js-mocha)
+[![Coverage Status](https://coveralls.io/repos/github/pact-foundation/pact-js-mocha/badge.svg?branch=master)](https://coveralls.io/github/pact-foundation/pact-js-mocha?branch=master)
 [![npm](https://img.shields.io/github/license/pact-foundation/pact-js-mocha.svg?maxAge=2592000)](https://github.com/pact-foundation/pact-js-mocha/blob/master/LICENSE)
 
 #WIP - DO NOT USE
