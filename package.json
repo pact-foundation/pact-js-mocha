@@ -63,7 +63,7 @@
     ]
   },
   "dependencies": {
-    "@pact-foundation/pact-node": "4.1.1",
+    "@pact-foundation/pact-node": "4.3.2",
     "escape-string-regexp": "1.0.5",
     "mocha": "2.5.3",
     "pact": "pact-foundation/pact-js"
