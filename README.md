@@ -44,7 +44,7 @@ In a nutshell:
 - Clean up all state and shuts down the mock servers created
 
 #### Usage
-The interface "extends" the [Mocha BDD](https://mochajs.org/#bdd) so all hooks original methods still work as expected thus you don't have to mix and match your test runs.
+The interface "extends" the [Mocha BDD](https://mochajs.org/#bdd) so all the original hooks still work as expected thus you don't have to mix and match your test runs.
 
 Once the library is installed you have to tell Mocha to use it. To do that you can either create a `mocha.opts` file on your test folder and tell Mocha to use it, like this:
 
@@ -96,25 +96,15 @@ Pact('PactUI', 'Projects Provider', PROVIDER_URL, function () {
 And your provider test will look like this:
 
 ```javascript
-var path = require('path')
 var expect = require('chai').expect
-var request = require('superagent-bluebird-promise')
-
-var server = require('./provider')
 
 PactProvider('Projects Consumer', 'Projects Provider', function () {
-  var PORT = Math.floor(Math.random() * 999) + 9000
-  var PROVIDER_URL = 'http://localhost:' + PORT
-
-  before(function (done) {
-    server.listen(PORT, done)
-  })
 
   var pactOpts = {
-    providerBaseUrl: PROVIDER_URL,
-    pactUrls: [ path.resolve(process.cwd(), 'pacts', 'pactui-projects_provider.json') ],
-    providerStatesUrl: PROVIDER_URL + '/providerStates',
-    providerStatesSetupUrl: PROVIDER_URL + '/providerStates',
+    providerBaseUrl: 'http://my.provider.com',
+    pactUrls: '/path/to/pact_file.json',
+    providerStatesUrl: 'http://my.provider.com/providerStates',
+    providerStatesSetupUrl: 'http://my.provider.com/setupProviderStates',
   }
 
   honourPact(pactOpts, function (result, done) {
