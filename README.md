@@ -28,7 +28,7 @@ This package is not yet published to [NPM](https://www.npmjs.com/) so you will n
 #### Installation
 It's easy, simply add the line below to your `devDependencies` group...
 ```
-"pact": "pact-foundation/pact-js-mocha"
+"pact-js-mocha": "pact-foundation/pact-js-mocha"
 ```
 ... then run `npm install` and you are good to go.
 

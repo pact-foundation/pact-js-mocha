@@ -1,5 +1,5 @@
 {
-  "name": "pact-mocha-interface",
+  "name": "pact-js-mocha",
   "version": "1.0.0-alpha",
   "description": "Mocha Interface for Pact",
   "main": "./src/index.js",
