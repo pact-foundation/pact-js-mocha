@@ -1,6 +1,5 @@
 'use strict'
 
-var path = require('path')
 var Pact = require('pact')
 var Mocha = require('mocha')
 var Test = require('mocha/lib/test')
@@ -181,26 +180,12 @@ module.exports = Mocha.interfaces['bdd'] = function (suite) {
       }
 
       var test = new Test(title, function (done) {
-        var mockServer = wrapper.createServer({
-          port: 1234,
-          log: path.resolve(process.cwd(), 'logs', 'mockserver-ui.log'),
-          dir: path.resolve(process.cwd(), 'pacts'),
-          spec: 2
-        })
-
-        mockServer.start()
-          .then(function () {
-            return pactSuite.pact.verify(pactFn)
-          })
+        pactSuite.pact
+          .verify(pactFn)
           .then(function (data) {
             fn(data, done)
           })
-          .catch(function (err) { done(err) })
-          .finally(function () {
-            mockServer.delete().then(function () {
-              wrapper.removeAllServers()
-            })
-          })
+          .catch(done)
       })
 
       test.file = file

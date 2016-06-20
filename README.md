@@ -52,6 +52,36 @@ Once the library is installed you have to tell Mocha to use it. To do that you c
 --require ./node_modules/pact-js-mocha/src/index.js
 ```
 
+##### For Consumers only
+You also have to tell Mocha to start the Pact Mock Server. To do that create a new file inside your test folder named `specHelper.js` and add the below to it:
+
+```javascript
+var path = require('path')
+var wrapper = require('@pact-foundation/pact-node')
+
+// create mock server to listen on port 1234
+var mockServer = wrapper.createServer({
+  port: 1234,
+  log: path.resolve(process.cwd(), 'logs', 'mockserver-ui.log'),
+  dir: path.resolve(process.cwd(), 'pacts'),
+  spec: 2
+})
+
+// start the mock server
+mockServer.start().then(function () {
+  // runs Mocha's test suite
+  run()
+})
+```
+
+Finally you need to also tell Mocha to require `specHelper.js` and delay the execution. Your final set of arguments will look like this:
+
+```
+--require ./node_modules/pact-js-mocha/src/index.js
+--require ./test/specHelper.js
+--delay
+```
+
 That's it. Then you can write your consumer test like below:
 ```javascript
 var expect = require('chai').expect
@@ -93,7 +123,7 @@ Pact('PactUI', 'Projects Provider', PROVIDER_URL, function () {
 })
 
 ```
-And your provider test will look like this:
+And your provider test will look like this (there's no need to tell Mocha about the Mock Server):
 
 ```javascript
 var expect = require('chai').expect

@@ -1,6 +1,8 @@
 --bail
+--require ./test/specHelper.js
 --require ./src/index.js
 --check-leaks
 --reporter spec
 --colors
 --recursive
+--delay
