@@ -1,5 +1,6 @@
 # Logs
 *.log
+logs/
 
 # Runtime data
 pids
@@ -24,3 +25,5 @@ build/Release
 node_modules
 
 jscpd.json
+
+pacts/

@@ -82,14 +82,14 @@ module.exports = Mocha.interfaces['bdd'] = function (suite) {
      * Top level function like describe above
      */
 
-    context.Pact = function (consumer, provider, providerURL, fn) {
-      var pactSuite = Suite.create(suites[0], consumer + ' has pact with ' + provider)
+    context.PactConsumer = function (opts, fn) {
+      var pactSuite = Suite.create(suites[0], opts.consumer + ' has pact with ' + opts.provider)
       pactSuite.file = file
 
-      pactSuite.pactConsumer = consumer
-      pactSuite.pactProvider = provider
+      pactSuite.pactConsumer = opts.consumer
+      pactSuite.pactProvider = opts.provider
 
-      pactSuite.pact = Pact({ consumer: consumer, provider: provider })
+      pactSuite.pact = Pact({ consumer: opts.consumer, provider: opts.provider, port: opts.providerPort })
 
       suites.unshift(pactSuite)
       fn.call(pactSuite, {})
@@ -98,12 +98,12 @@ module.exports = Mocha.interfaces['bdd'] = function (suite) {
       return pactSuite
     }
 
-    context.PactProvider = function (consumer, provider, fn) {
-      var pactSuite = Suite.create(suites[0], 'Pact ' + consumer + ' <=> ' + provider)
+    context.PactProvider = function (opts, fn) {
+      var pactSuite = Suite.create(suites[0], opts.consumer + ' has pact with ' + opts.provider)
       pactSuite.file = file
 
-      pactSuite.pactConsumer = consumer
-      pactSuite.pactProvider = provider
+      pactSuite.pactConsumer = opts.consumer
+      pactSuite.pactProvider = opts.provider
 
       suites.unshift(pactSuite)
       fn.call(pactSuite, {})
@@ -162,9 +162,24 @@ module.exports = Mocha.interfaces['bdd'] = function (suite) {
       return test
     }
 
-    context.add = function (fn) {
+    context.addInteraction = function (interactionObj) {
       var pactSuite = suites[0]
-      fn.call(pactSuite, pactSuite.pact.interaction())
+      context.beforeEach(function (done) {
+        pactSuite.pact.addInteraction(interactionObj)
+          .then(function () {
+            done()
+          })
+      })
+    }
+
+    context.finalizePact = function () {
+      var pactSuite = suites[0]
+      context.after(function (done) {
+        pactSuite.pact.finalize()
+          .then(function () {
+            done()
+          })
+      })
     }
 
     /**
@@ -172,7 +187,7 @@ module.exports = Mocha.interfaces['bdd'] = function (suite) {
      * and runs the Pact verification promise chain.
      */
 
-    context.verify = function (title, pactFn, fn) {
+    context.verify = function (title, clientRequestFn, fn) {
       var pactSuite = suites[0]
 
       if (pactSuite.pending) {
@@ -180,8 +195,8 @@ module.exports = Mocha.interfaces['bdd'] = function (suite) {
       }
 
       var test = new Test(title, function (done) {
-        pactSuite.pact
-          .verify(pactFn)
+        clientRequestFn()
+          .then(pactSuite.pact.verify)
           .then(function (data) {
             fn(data, done)
           })

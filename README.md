@@ -1,6 +1,4 @@
 # Pact Mocha Interface
-Mocha Interface for Pact
-
 [![Build Status](https://travis-ci.org/pact-foundation/pact-js-mocha.svg?branch=master)](https://travis-ci.org/pact-foundation/pact-js-mocha)
 [![Code Climate](https://codeclimate.com/github/pact-foundation/pact-js-mocha/badges/gpa.svg)](https://codeclimate.com/github/pact-foundation/pact-js-mocha)
 [![Issue Count](https://codeclimate.com/github/pact-foundation/pact-js-mocha/badges/issue_count.svg)](https://codeclimate.com/github/pact-foundation/pact-js-mocha)
@@ -53,7 +51,11 @@ Once the library is installed you have to tell Mocha to use it. To do that you c
 ```
 
 ##### For Consumers only
-You also have to tell Mocha to start the Pact Mock Server. To do that create a new file inside your test folder named `specHelper.js` and add the below to it:
+You also have to tell Mocha to start the Pact Mock Server. The management of the Mock Server is up to you: you can either manage within the test file itself or as part of your test suite.
+
+The example below shows how you can do the latter. To manage within your test suite have a look at [this integration test](https://github.com/pact-foundation/pact-js/blob/master/test/dsl/integration.spec.js) on the [Pact JS library](https://github.com/pact-foundation/pact-js) itself.
+
+To do that create a new file inside your test folder named `specHelper.js` and add the below to it:
 
 ```javascript
 var path = require('path')
@@ -85,43 +87,49 @@ Finally you need to also tell Mocha to require `specHelper.js` and delay the exe
 That's it. Then you can write your consumer test like below:
 ```javascript
 var expect = require('chai').expect
-var request = require('superagent-bluebird-promise')
+var request = require('superagent')
 
-var PROVIDER_URL = 'http://localhost:1234'
+var PactOpts = {
+  consumer: 'PactUI',             // the name of your consumer
+  provider: 'Projects Provider',  // the name of your Provider
+  providerPort: 1234              // the port on which the provider runs
+}
 
-Pact('PactUI', 'Projects Provider', PROVIDER_URL, function () {
+PactConsumer(PactOpts, function () {
 
-  var EXPECTED_BODY = [{
-    id: 1,
-    name: 'Project 1',
-    due: '2016-02-11T09:46:56.023Z',
-    tasks: [
-      {id: 1, name: 'Do the laundry', 'done': true},
-      {id: 2, name: 'Do the dishes', 'done': false},
-      {id: 3, name: 'Do the backyard', 'done': false},
-      {id: 4, name: 'Do nothing', 'done': false}
-    ]
-  }]
-
-  add(function (interaction) {
-    interaction
-      .given('i have a list of projects')
-      .uponReceiving('a request for projects')
-      .withRequest('get', '/projects', null, { 'Accept': 'application/json' })
-      .willRespondWith(200, { 'Content-Type': 'application/json; charset=utf-8' }, EXPECTED_BODY)
+  // this is wrapped in a beforeEach block
+  // thus it runs before all your verify's
+  addInteraction({
+    state: 'i have a list of projects',
+    uponReceiving: 'a request for projects',
+    withRequest: {
+      method: 'get',
+      path: '/projects',
+      headers: { 'Accept': 'application/json' }
+    },
+    willRespondWith: {
+      status: 200,
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: { reply: 'hello' }
+    }
   })
 
   function requestProjects () {
-    return request.get(PROVIDER_URL + '/projects').set({ 'Accept': 'application/json' })
+    return request.get('http://localhost:' + PactOpts.providerPort + '/projects').set({ 'Accept': 'application/json' })
   }
 
-  verify('single interaction', requestProjects, function (result, done) {
-    expect(JSON.parse(result)).to.eql(EXPECTED_BODY)
+  // this is your 'it' block
+  verify('a list of projects is returned', requestProjects, function (result, done) {
+    expect(JSON.parse(result)).to.eql({ reply: 'hello' })
     done()
   })
 
-})
+  // this is wrapped in a after block
+  // thus it runs after all your verify's
+  // it writes the pact and clear all interactions
+  finalizePact()
 
+})
 ```
 And your provider test will look like this (there's no need to tell Mocha about the Mock Server):
 

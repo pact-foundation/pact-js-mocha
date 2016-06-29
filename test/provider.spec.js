@@ -1,10 +1,15 @@
 var path = require('path')
 var expect = require('chai').expect
-var request = require('superagent-bluebird-promise')
+var request = require('superagent')
 
 var server = require('./provider')
 
-PactProvider('Projects Consumer', 'Projects Provider', function () {
+var PactOpts = {
+  consumer: 'PactUI',
+  provider: 'Projects Provider'
+}
+
+PactProvider(PactOpts, function () {
   var PORT = Math.floor(Math.random() * 999) + 9000
   var PROVIDER_URL = 'http://localhost:' + PORT
 

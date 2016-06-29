@@ -1,43 +1,38 @@
 var expect = require('chai').expect
-var request = require('superagent-bluebird-promise')
+var request = require('superagent')
 
-var PROVIDER_URL = 'http://localhost:1234'
+var PactOpts = {
+  consumer: 'PactUI',
+  provider: 'Projects Provider',
+  providerPort: 1234
+}
 
-Pact('PactUI', 'Projects Provider', PROVIDER_URL, function () {
+PactConsumer(PactOpts, function () {
 
-  var EXPECTED_BODY = [{
-    id: 1,
-    name: 'Project 1',
-    due: '2016-02-11T09:46:56.023Z',
-    tasks: [
-      {id: 1, name: 'Do the laundry', 'done': true},
-      {id: 2, name: 'Do the dishes', 'done': false},
-      {id: 3, name: 'Do the backyard', 'done': false},
-      {id: 4, name: 'Do nothing', 'done': false}
-    ]
-  }]
-
-  add(function (interaction) {
-    interaction
-      .given('i have a list of projects')
-      .uponReceiving('a request for projects')
-      .withRequest('get', '/projects', null, { 'Accept': 'application/json' })
-      .willRespondWith(200, { 'Content-Type': 'application/json; charset=utf-8' }, EXPECTED_BODY)
+  addInteraction({
+    state: 'i have a list of projects',
+    uponReceiving: 'a request for projects',
+    withRequest: {
+      method: 'get',
+      path: '/projects',
+      headers: { 'Accept': 'application/json' }
+    },
+    willRespondWith: {
+      status: 200,
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: { reply: 'hello' }
+    }
   })
 
   function requestProjects () {
-    return request.get(PROVIDER_URL + '/projects').set({ 'Accept': 'application/json' })
+    return request.get('http://localhost:' + PactOpts.providerPort + '/projects').set({ 'Accept': 'application/json' })
   }
 
-  // Interceptor example
-  // var Interceptor = require('pact').Interceptor
-  // var interceptor = new Interceptor('http://localhost:1234')
-  // beforeEach(function () { interceptor.interceptRequestsOn(PROVIDER_URL) })
-  // afterEach(function () { interceptor.stopIntercepting() })
-
-  verify('single interaction', requestProjects, function (result, done) {
-    expect(JSON.parse(result)).to.eql(EXPECTED_BODY)
+  verify('a list of projects is returned', requestProjects, function (result, done) {
+    expect(JSON.parse(result)).to.eql({ reply: 'hello' })
     done()
   })
+
+  finalizePact()
 
 })
