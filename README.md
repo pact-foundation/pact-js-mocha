@@ -136,7 +136,7 @@ And your provider test will look like this (there's no need to tell Mocha about 
 ```javascript
 var expect = require('chai').expect
 
-PactProvider('Projects Consumer', 'Projects Provider', function () {
+PactProvider({consumer: 'Projects Consumer', provider: 'Projects Provider'}, function () {
 
   var pactOpts = {
     providerBaseUrl: 'http://my.provider.com',
