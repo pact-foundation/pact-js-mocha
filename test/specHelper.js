@@ -12,4 +12,8 @@ var mockServer = wrapper.createServer({
 
 mockServer.start().then(function () {
   run()
+
+  process.on('SIGINT', function () {
+    wrapper.removeAllServers()
+  })
 })

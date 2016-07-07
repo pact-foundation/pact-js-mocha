@@ -7,6 +7,7 @@ var Suite = require('mocha/lib/suite')
 var escapeRe = require('escape-string-regexp')
 var wrapper = require('@pact-foundation/pact-node')
 var Common = require('mocha/lib/interfaces/common')
+var Promise = require('bluebird')
 
 /**
  * BDD-style interface mixed with Pact:
@@ -162,23 +163,25 @@ module.exports = Mocha.interfaces['bdd'] = function (suite) {
       return test
     }
 
-    context.addInteraction = function (interactionObj) {
+    context.addInteractions = function (interactions) {
       var pactSuite = suites[0]
-      context.beforeEach(function (done) {
-        pactSuite.pact.addInteraction(interactionObj)
-          .then(function () {
-            done()
-          })
+      context.before(function (done) {
+        var interactionsPromise = interactions.map(function (interaction) {
+          return pactSuite.pact.addInteraction(interaction)
+        })
+
+        Promise.all(interactionsPromise).then(function () {
+          done()
+        })
       })
     }
 
     context.finalizePact = function () {
       var pactSuite = suites[0]
       context.after(function (done) {
-        pactSuite.pact.finalize()
-          .then(function () {
-            done()
-          })
+        pactSuite.pact.finalize().then(function () {
+          done()
+        })
       })
     }
 

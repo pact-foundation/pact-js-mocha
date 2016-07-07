@@ -97,9 +97,9 @@ var PactOpts = {
 
 PactConsumer(PactOpts, function () {
 
-  // this is wrapped in a beforeEach block
-  // thus it runs before all your verify's
-  addInteraction({
+  // this is wrapped in a before() block
+  // it takes an Array of interactions
+  addInteractions([{
     state: 'i have a list of projects',
     uponReceiving: 'a request for projects',
     withRequest: {
@@ -112,7 +112,7 @@ PactConsumer(PactOpts, function () {
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
       body: { reply: 'hello' }
     }
-  })
+  }])
 
   function requestProjects () {
     return request.get('http://localhost:' + PactOpts.providerPort + '/projects').set({ 'Accept': 'application/json' })
