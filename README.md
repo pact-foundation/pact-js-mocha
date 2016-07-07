@@ -24,11 +24,10 @@ how to get going.
 This package is not yet published to [NPM](https://www.npmjs.com/) so you will need to install it manually by modifying your `package.json`.
 
 #### Installation
-It's easy, simply add the line below to your `devDependencies` group...
+It's easy, simply run:
 ```
-"pact-js-mocha": "pact-foundation/pact-js-mocha"
+npm install --save-dev pact-js-mocha
 ```
-... then run `npm install` and you are good to go.
 
 #### What does this interface does
 This Mocha interface abstracts some aspects of the usage of the DSL to make your test a bit cleaner and not having to worry about learning the [Pact JS DSL](https://github.com/pact-foundation/pact-js).
