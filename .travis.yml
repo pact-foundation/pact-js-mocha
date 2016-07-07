@@ -1,6 +1,7 @@
 language: node_js
 node_js:
 - '4'
+- '5'
 - '6'
 env:
   matrix:
@@ -13,9 +14,24 @@ addons:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.8
-before_install:
-- npm install mitm
-install: npm install
 script: npm test
 after_success:
 - npm run coverage
+before_deploy:
+- tar -czvf pactjs-mocha.tar.gz src package.json README.md LICENSE
+deploy:
+- provider: releases
+  api_key:
+    secure: rQvmCRePpDsIy8eAnCZ9sdI3KY97VcrzmNSZJq3yXKydbw61PBZ8ld25DGpDWKJfbr0wvZybPN7Bp8jfXr2qX0XcE0DwD36iotphAVJ18kP6p/RQx/1+zzNyO/B/rXe9vvzMQKE6+L2jN0UuOqkUQrxMJ5/KSPr9EaIaLA2we4W8OG8A0KPJDLLSxvXlHwl6/6uZOJilN+cszaMqLQ2bVDwlWDXXp+iC8ILDRohYBlGHXsVOUSOFwFBYBw1oNTe3WaBBwr/zOt7MSulm5hOBCcnApUmu0Vca7IkDVSjCCHS5HxbNCKkwL60xJ65wQ4sgmUz6cwj98VV1Gr1iuFHVB29qc2BWcNy1F7ZeONBSk4+1KG2UaogqGzvyRC/oZyOd6WGAWTSTeFQHkNk6z20EVZZfvSbdys5SXyA8uoSbUfDb5wgNZBTzoK5vp5VPNbCGRba6wN/Yw+GM8js/p1Qjh4sd8WUi6ewldXYyUHLrIXJ5flyzNfwOb4j3ToWgBCic9jmqWFAttNqJ9W7y7rGiQ3gjzKlmu6Prv29j1BXvYMRfBs6IGDO+pxuYWQno9JBmZDbXmhu8IUC8c3e0gHLnNDuvCmTPtmY/N5o0mIxjFf7ilVv/jgHiKA/sbAqvpAZUk/4hSXLBEfTVCOka6OXqfLIdroNam13kfHFT35B2yT4=
+  file: pactjs-mocha.tar.gz
+  skip_cleanup: true
+  on:
+    tags: true
+    node: '6'
+- provider: npm
+  email: tarcio@gmail.com
+  api_key:
+    secure: gb1hhUn6PlSBp2zrT3swQLZT7QuN/vNwAIYP+zYcAGPJouxvKSiZU4GhVxBFZLGnt0IOmKnqjDyl82L146PA9+QmQqqW0l2qjn7Hy8y7jOq4AV33DkISfNUVqgonPvF+7O95NdP8BgLqY9NmE7tIsyRExUjIFhcOlfzgEkn0lJa6vVmE/LpuJtd0Sc+XB6Kq6RiySj0E2iBGfXC+kSv5CWdE3W9ZkPcT5Sjf0auvtJFbh5tJ3ixiqX0tn8mxOtFnCLXRCTkskLGGMDiq44ZeQL9vEhqanuNiAOU7Cr6KDm3EV6b3crnCI4DOqMEUBYIXp1Pqh9+dQVJAHhNhZKMQkmbpMUX/wwDVpXuZp4wEvpRSOlUH+1nuxybOG1mXdAikS0YICPaoGGdduDE8Zh/gKb0zw499HekP4x3nxepk+cBcaksFMWzMYEreXpjCuIceJC3qjiULNC735N3vLzBWHbTZTV4Arng5rCZMcfJADHQIqrSI3UDD8kLxlkkfT66C81XYmc9ALovAadVwyvMqHGjguwdeAa8LjHQjUKwBhi0IZOVfhsuYeTl250WrDfS4MNFiBJ1MysziZptgX2uIQY28FLOmI6MNhTaejTQdhKSsJSQ7iBPOwR+wWaV5nGqFNoqv0Rr2CZwaubBHuyxaUEqY1STUVVT1/zeetupA3Mc=
+  on:
+    tags: true
+    node: '6'
