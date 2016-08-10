@@ -28,4 +28,8 @@ PactProvider(PactOpts, function () {
     done()
   })
 
+  honourPact(Object.assign({name: 'honours a particular set of interactions'}, pactOpts), function (result, done) {
+    done()
+  })
+
 })

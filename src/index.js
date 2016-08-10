@@ -218,7 +218,7 @@ module.exports = Mocha.interfaces['bdd'] = function (suite) {
         fn = null
       }
 
-      var test = new Test('should honour interactions', function (done) {
+      var test = new Test(opts.name || 'honours interactions', function (done) {
         wrapper.verifyPacts(opts)
           .then(function (data) {
             fn(data, done)
