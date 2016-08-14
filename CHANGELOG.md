@@ -1,3 +1,8 @@
+<a name="1.0.2-alpha"></a>
+## [1.0.2-alpha](https://github.com/pact-foundation/pact-js-mocha/compare/1.0.1-alpha...v1.0.2-alpha) (2016-08-14)
+
+
+
 <a name="1.0.1-alpha"></a>
 ## [1.0.1-alpha](https://github.com/pact-foundation/pact-js-mocha/compare/v1.0.0-alpha...1.0.1-alpha) (2016-07-10)
 
