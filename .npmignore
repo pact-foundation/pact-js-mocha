@@ -1,0 +1,12 @@
+# folders
+
+coverage/
+logs/
+pacts/
+test/
+
+# files
+jscpd.json
+.editorconfig
+.istanbul.yml
+.travis.yml
