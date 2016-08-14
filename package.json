@@ -63,20 +63,21 @@
     ]
   },
   "dependencies": {
-    "@pact-foundation/pact-node": "4.5.0",
+    "@pact-foundation/pact-node": "4.5.x",
     "escape-string-regexp": "1.0.5",
-    "mocha": "2.5.3",
+    "mocha": "3.x",
     "pact": "1.0.0-rc"
   },
   "devDependencies": {
-    "bluebird": "3.4.1",
-    "body-parser": "1.15.2",
-    "chai": "3.5.0",
-    "coveralls": "2.11.9",
-    "express": "4.14.0",
-    "istanbul": "0.4.4",
-    "jscpd": "0.6.3",
-    "standard": "7.1.2",
-    "superagent": "2.0.0"
+    "bluebird": "3.x",
+    "body-parser": "1.x",
+    "chai": "3.x",
+    "conventional-changelog-cli": "^1.2.0",
+    "coveralls": "2.x",
+    "express": "4.x",
+    "istanbul": "0.x",
+    "jscpd": "0.x",
+    "standard": "7.x",
+    "superagent": "2.x"
   }
 }
