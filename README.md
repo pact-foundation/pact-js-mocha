@@ -29,7 +29,7 @@ It's easy, simply run:
 npm install --save-dev pact-js-mocha
 ```
 
-#### What does this interface does
+#### What does this interface do
 This Mocha interface abstracts some aspects of the usage of the DSL to make your test a bit cleaner and not having to worry about learning the [Pact JS DSL](https://github.com/pact-foundation/pact-js).
 
 We thought it was useful due to the fact that there is some boilerplate code needed to get the DSL up and going so abstracting all this made sense.
