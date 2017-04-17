@@ -3,6 +3,7 @@
   "version": "1.0.2-alpha",
   "description": "Mocha Interface for Pact",
   "main": "./src/index.js",
+  "types": "./src/index.d.ts",
   "scripts": {
     "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "lint": "standard",
@@ -65,6 +66,7 @@
   },
   "dependencies": {
     "@pact-foundation/pact-node": "4.5.x",
+    "@types/mocha": "^2.2.40",
     "escape-string-regexp": "1.0.5",
     "mocha": "3.x",
     "pact": "1.0.0-rc"
