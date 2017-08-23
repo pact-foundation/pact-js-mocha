@@ -20,8 +20,11 @@ From the [Pact website](http://docs.pact.io/):
 Read [Getting started with Pact](http://dius.com.au/2016/02/03/microservices-pact/) for more information on
 how to get going.
 
+# _WARNING_:
+
+This repository is considered experimental and is much behind the main DSL at [Pact API](https://github.com/pact-foundation/pact-js). Use at your own risk!
+
 ## How to use it
-This package is not yet published to [NPM](https://www.npmjs.com/) so you will need to install it manually by modifying your `package.json`.
 
 #### Installation
 It's easy, simply run:
