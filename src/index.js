@@ -199,8 +199,8 @@ module.exports = Mocha.interfaces['bdd'] = function (suite) {
 
       var test = new Test(title, function (done) {
         clientRequestFn()
-          .then(pactSuite.pact.verify)
           .then(function (data) {
+            pactSuite.pact.verify(data);
             fn(data, done)
           })
           .catch(done)
