@@ -67,7 +67,7 @@
     "@pact-foundation/pact-node": "4.5.x",
     "escape-string-regexp": "1.0.5",
     "mocha": "3.x",
-    "pact": "1.0.0-rc"
+    "pact": "1.0.0"
   },
   "devDependencies": {
     "bluebird": "3.x",
