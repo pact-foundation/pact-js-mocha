@@ -66,7 +66,7 @@
   "dependencies": {
     "@pact-foundation/pact-node": "4.5.x",
     "escape-string-regexp": "1.0.5",
-    "mocha": "3.x",
+    "mocha": "6.2.3",
     "pact": "1.0.0-rc"
   },
   "devDependencies": {
